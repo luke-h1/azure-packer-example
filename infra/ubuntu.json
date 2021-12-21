@@ -1,0 +1,47 @@
+{
+  "builders": [{
+    "type": "azure-arm",
+
+    "client_id": "client_id",
+    "client_secret": "client_secret",
+    "tenant_id": "tenant_id",
+    "subscription_id": "subscription_id",
+    "managed_image_resource_group_name": "your_resource_group_name",
+    "managed_image_name": "this_can_be_any_name_you_want",
+
+    "os_type": "Linux",
+    "image_publisher": "Canonical",
+    "image_offer": "UbuntuServer",
+    "image_sku": "18.04-LTS",
+    
+    "azure_tags": {
+        "dept": "NA",
+        "task": "packerdemo"
+    },
+    "location": "West Europe",
+    "vm_size": "Standard_B2s"
+  }],
+  "provisioners": [{
+    "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+    "inline": [
+      "apt-get update -y",
+      "apt-get upgrade -y",
+      "apt-get wget -y",
+      "wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
+      "sudo apt install -y ./google-chrome-stable_current_amd64.deb",
+      "apt-get install software-properties-common -y",
+      "add-apt-repository ppa:deadsnakes/ppa -y",
+      "apt-get install python3.8 -y",
+      "apt-get install python3-pip -y",
+      "echo alias pip='pip3' > ~/.bashrc",
+      "pip install pipenv -y ",
+      "apt-get install python-setuptools -y",
+      "sudo easy_install pip",
+      "apt-get update -y",
+      "apt-get install python3-pip",
+      "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+    ],
+    "inline_shebang": "/bin/sh -x",
+    "type": "shell"
+  }]
+}
