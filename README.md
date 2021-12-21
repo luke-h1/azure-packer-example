@@ -6,7 +6,7 @@ Link to the main [Azure Packer docs](https://docs.microsoft.com/en-us/azure/virt
 
 To get started from scratch: 
 
-- get the azure CLI tools 
+- get the az CLI installed
 - login to your Azure account: `az login`
 - create a resourceGroup: `az group create -n myResourceGroupName -l westeurope` 
 - create azure credentials (packer authenticates to azure via a service principal): `az ad sp create-for-rbac --role Contributor --query "{ client_id: appId, client_secret: password, tenant_id: tenant }"
@@ -27,3 +27,9 @@ To get started from scratch:
 packer build infra/ubuntu.json
 ```
 * This initial build tends to take around 6 - 7 minutes
+
+* Assuming you've started following these steps with a fresh resource group, your azure environment should look like the following: 
+
+[Azure resource group](/images/az.png)
+
+* You can now create a scale set image which inherits this image.
