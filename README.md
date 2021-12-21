@@ -30,6 +30,6 @@ packer build infra/ubuntu.json
 
 * Assuming you've started following these steps with a fresh resource group, your azure environment should look like the following: 
 
-![Azure resource group](https://github.com/luke-h1/azure-packer-example/blob/main/images/az.png)
+![Azure resource group](./images/az.png)
 
 * You can now create a scale set image which inherits this image.
